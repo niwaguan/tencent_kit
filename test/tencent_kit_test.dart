@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:tencent_kit/src/constant.dart';
@@ -61,7 +62,8 @@ class MockTencentKitPlatform
   @override
   Future<void> shareImage({
     required int scene,
-    required Uri imageUri,
+    Uri? imageUri,
+    Uint8List? imageData,
     String? appName,
     int extInt = TencentQZoneFlag.kDefault,
   }) {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:tencent_kit/src/constant.dart';
 import 'package:tencent_kit/src/model/resp.dart';
@@ -101,7 +102,8 @@ abstract class TencentKitPlatform extends PlatformInterface {
   /// 分享 - 图片
   Future<void> shareImage({
     required int scene,
-    required Uri imageUri,
+    Uri? imageUri,
+    Uint8List? imageData,
     String? appName,
     int extInt = TencentQZoneFlag.kDefault,
   }) {

@@ -143,18 +143,21 @@ class MethodChannelTencentKit extends TencentKitPlatform {
   @override
   Future<void> shareImage({
     required int scene,
-    required Uri imageUri,
+    Uri? imageUri,
+    Uint8List? imageData,
     String? appName,
     int extInt = TencentQZoneFlag.kDefault,
   }) {
     assert(scene == TencentScene.kScene_QQ);
-    assert(imageUri.isScheme('file'));
+    assert(
+        imageData != null || (imageUri != null && imageUri.isScheme('file')));
     return methodChannel.invokeMethod<void>(
       'shareImage',
       <String, dynamic>{
         'scene': scene,
         'imageUri': imageUri.toString(),
         if (appName?.isNotEmpty ?? false) 'appName': appName,
+        if (imageData != null) 'imageData': imageData,
         'extInt': extInt,
       },
     );

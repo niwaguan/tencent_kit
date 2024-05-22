@@ -162,12 +162,16 @@ enum TencentRetCode {
     NSNumber *scene = call.arguments[@"scene"];
     if (scene.intValue == SCENE_QQ) {
         NSString *imageUri = call.arguments[@"imageUri"];
+        FlutterStandardTypedData *imageData = call.arguments[@"imageData"];
+        NSData *data = imageData.data;
+        if (data == nil) {
+            NSURL *imageUrl = [NSURL URLWithString:imageUri];
+            data = [NSData dataWithContentsOfFile:imageUrl.path];
+        }
         // NSString *appName = call.arguments[@"appName"];
         // NSNumber *extInt = call.arguments[@"extInt"];
-
-        NSURL *imageUrl = [NSURL URLWithString:imageUri];
-        NSData *imageData = [NSData dataWithContentsOfFile:imageUrl.path];
-        QQApiImageObject *object = [QQApiImageObject objectWithData:imageData
+        
+        QQApiImageObject *object = [QQApiImageObject objectWithData:data
                                                    previewImageData:nil
                                                               title:nil
                                                         description:nil];
